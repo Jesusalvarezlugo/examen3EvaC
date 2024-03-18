@@ -36,5 +36,16 @@ namespace examen3Eva.Dtos
             this.cantidadProducto = cantidadProducto;
             this.fechaEntrega = fechaEntrega;
         }
+
+        //Metodo toString
+
+        override
+
+        public string ToString()
+        {
+            string texto = "Producto: "+this.nombreProducto+"\n Cantidad:  "+this.cantidadProducto+"\n Fecha de entrega: "+this.fechaEntrega;
+
+            return texto;
+        }
     }
 }

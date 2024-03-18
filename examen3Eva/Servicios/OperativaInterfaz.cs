@@ -14,5 +14,9 @@ namespace examen3Eva.Servicios
         public void calculoTotalVentas(List<VentaDto> listaAntigua);
 
         public void menuEmpleado(List<VentaDto> listaAntigua);
+
+        public void menuGerencia(List<ProductoDto> listaAntiguaP,List<VentaDto> listaAntigua);
+
+        public void mostrarVentas(List<VentaDto> listaAntigua);
     }
 }

@@ -114,7 +114,7 @@ namespace examen3Eva.Servicios
             }
         }
 
-        public void menuGerencia(List<VentaDto> listaAntigua)
+        public void menuGerencia(List<ProductoDto> listaAntiguaP,List<VentaDto> listaAntigua)
         {
             int opcionS;
             bool cerrarMenu = false;
@@ -133,17 +133,105 @@ namespace examen3Eva.Servicios
 
                     case 1:
                         Console.WriteLine("[INFO] creara un nuevo pedido.");
+                        crearProducto(listaAntiguaP);
+
+                        foreach(ProductoDto venta in listaAntiguaP)
+                        {
+                            Console.WriteLine(venta.ToString());
+                        }
 
                         break;
 
                     case 2:
                         Console.WriteLine("[INFO] escribira en un fichero todas las ventas.");
+
+                        mostrarVentas(listaAntigua);
                         break;
                 }
             }
 
         }
 
-        
+        public void crearProducto(List<ProductoDto> listaAntiguaP)
+        {
+            string respuesta = "";
+
+            do
+            {
+                ProductoDto producto = nuevoProducto(listaAntiguaP);
+                listaAntiguaP.Add(producto);
+
+                Console.WriteLine("¿Desea crear otro producto?");
+                respuesta = Console.ReadLine();
+
+            } while (respuesta == "s");
+            
+                
+            
+            
+        }
+
+        public ProductoDto nuevoProducto(List<ProductoDto> listaAntiguaP)
+        {
+            ProductoDto producto = new ProductoDto();
+            string fechaEntrega;
+            Console.WriteLine("Indique el nombre del producto: ");
+            producto.NombreProducto = Console.ReadLine();
+            Console.WriteLine("Indique la cantidad del producto: ");
+            producto.CantidadProducto=Int32.Parse(Console.ReadLine());
+            Console.WriteLine("Introduzca la fecha para entregar el pedido (dd-MM-yyyy)");
+            fechaEntrega = Console.ReadLine();
+            producto.FechaEntrega=Convert.ToDateTime(fechaEntrega);
+            producto.IdProducto = autoIdP(listaAntiguaP);
+
+            return producto;
+
+        }
+
+        private long autoIdP(List<ProductoDto> listaAntigua)
+        {
+            int tamanioLista = listaAntigua.Count;
+            long nuevoId;
+
+            if (tamanioLista > 0)
+            {
+                nuevoId = listaAntigua[tamanioLista - 1].IdProducto + 1;
+            }
+            else
+            {
+                nuevoId = 1;
+            }
+
+            return nuevoId;
+
+        }
+
+        public void mostrarVentas(List<VentaDto> listaAntigua)
+        {
+            string fechaAPedir;
+            VentaDto venta=new VentaDto();
+            Console.WriteLine("Introduzca la fecha en formato dd-MM-yyyy");
+            fechaAPedir = Console.ReadLine();
+
+            DateTime fechaPars=Convert.ToDateTime(fechaAPedir);
+            string fechaSinGuiones = fechaAPedir.Replace("-", "");
+            string rutaFichero = fechaAPedir + ".txt";
+
+            if (fechaPars.Day==venta.FechaVenta.Day&&fechaPars.Month==venta.FechaVenta.Month&&fechaPars.Year==venta.FechaVenta.Year)
+            {
+                using(StreamWriter sw = new StreamWriter(rutaFichero))
+                {
+                    sw.WriteLine(". . . . . . . . . . \n" +
+                                 " Venta numero: "+venta.Id+"\n Euros: "+venta.Importe+"\n Instante de compra: "+venta.FechaVenta+
+                                 "\n . . . . . . . . . .");
+
+                    sw.Close();
+                }
+
+                
+            }
+        }
+
+
     }
 }

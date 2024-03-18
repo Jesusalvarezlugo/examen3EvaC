@@ -12,6 +12,7 @@ namespace examen3Eva
             MenuInterfaz mi = new MenuImplementacion();
             OperativaInterfaz oi = new OperativaImplementacion();
             List<VentaDto> listaVentas = new List<VentaDto>();
+            List<ProductoDto> listaPedidos=new List<ProductoDto>();
 
             while (!cerrarMenu)
             {
@@ -27,6 +28,10 @@ namespace examen3Eva
                     case 1:
                         oi.menuEmpleado(listaVentas);
                         
+                        break;
+
+                    case 2:
+                        oi.menuGerencia(listaPedidos,listaVentas);
                         break;
                 }
             }
