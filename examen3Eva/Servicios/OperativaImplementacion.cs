@@ -60,6 +60,7 @@ namespace examen3Eva.Servicios
             return venta;
         }
 
+        //Metodo para generar un id automaticamente(venta)
         private long autoId(List<VentaDto> listaAntigua)
         {
             int tamanioLista=listaAntigua.Count;
@@ -188,6 +189,7 @@ namespace examen3Eva.Servicios
 
         }
 
+        //Metodo para generar un id automaticamente (producto)
         private long autoIdP(List<ProductoDto> listaAntigua)
         {
             int tamanioLista = listaAntigua.Count;
@@ -215,7 +217,7 @@ namespace examen3Eva.Servicios
 
             DateTime fechaPars=Convert.ToDateTime(fechaAPedir);
             string fechaSinGuiones = fechaAPedir.Replace("-", "");
-            string rutaFichero = fechaAPedir + ".txt";
+            string rutaFichero = fechaSinGuiones+ ".txt";
 
             if (fechaPars.Day==venta.FechaVenta.Day&&fechaPars.Month==venta.FechaVenta.Month&&fechaPars.Year==venta.FechaVenta.Year)
             {
